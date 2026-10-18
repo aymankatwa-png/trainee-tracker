@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#13253B">
+<title>غرفة التحرير — متتبّع المتدرّبين · المركز الإعلامي — ممكن</title>
+<meta name="description" content="متتبّع تدريب الكتابة الإعلامية لمتدرّبي المركز الإعلامي في منظمة ممكن — Creative Copywriter Course في ثمانية أسابيع.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="app.css?v=1">
+</head>
+<body>
+
+<!-- ============ who is here ============ -->
+<div class="veil hidden" id="rolePicker">
+  <div class="veil-card">
+    <img class="veil-logo" src="assets/logo-cyan.png" alt="ممكن">
+    <h2>من في غرفة التحرير؟</h2>
+    <p>الإجابة تُحفَظ على هذا الجهاز فقط — ويمكن تغييرها في أي وقت.</p>
+    <div class="pick-row">
+      <button class="btn btn-orange" data-role="m">أنا متدرّب</button>
+      <button class="btn btn-orange" data-role="f">أنا متدرّبة</button>
+      <button class="btn btn-line" data-role="manager">أنا المشرف</button>
+    </div>
+    <div class="name-row hidden" id="nameRow">
+      <label for="nameInput">الاسم كما سيظهر في الشهادة</label>
+      <div class="row">
+        <input id="nameInput" maxlength="40" autocomplete="name" placeholder="الاسم الكامل">
+        <button class="btn btn-navy btn-sm" id="nameGo">ابدأ</button>
+      </div>
+    </div>
+    <div class="pin-row hidden" id="pinRow">
+      <input id="pinInput" inputmode="numeric" maxlength="6" placeholder="رمز المشرف" dir="ltr" autocomplete="off">
+      <button class="btn btn-navy btn-sm" id="pinGo">دخول</button>
+      <div class="pin-err hidden" id="pinErr">الرمز غير صحيح — حاول مجددًا.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ sync bar ============ -->
+<div class="syncbar">
+  <div class="syncbar-in">
+    <span class="dot" id="syncDot"></span>
+    <span class="sync-txt" id="syncTxt">حفظ محلي فقط</span>
+    <span class="grow"></span>
+    <span class="role-badge" id="roleBadge">—</span>
+    <button class="btn btn-ghost btn-xs" id="btnSwitchRole">تبديل</button>
+    <button class="btn btn-navy btn-xs" id="btnSyncNow">مزامنة الآن</button>
+    <button class="btn btn-ghost btn-xs" id="btnSetup">إعدادات الحفظ</button>
+  </div>
+  <div class="setup hidden" id="setupPanel">
+    <div class="setup-in">
+      <div class="field"><label>GitHub Gist ID</label><input id="inGist" placeholder="a1b2c3d4…" autocomplete="off" spellcheck="false" dir="ltr"></div>
+      <div class="field"><label>GitHub Token · gist scope</label><input id="inToken" type="password" placeholder="ghp_…" autocomplete="off" dir="ltr"></div>
+      <div class="field narrow" id="fileField"><label>رمز ملفّك (للجهاز الثاني)</label><input id="inFile" dir="ltr" spellcheck="false"></div>
+      <button class="btn btn-orange btn-sm" id="btnSaveSetup">حفظ وربط</button>
+      <div class="setup-note" id="setupNote"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ hero: the editing desk ============ -->
+<header class="hero" id="hero">
+  <div class="drafts" aria-hidden="true">
+    <div class="draft-layer rough" id="draftRough"></div>
+    <div class="draft-layer clean" id="draftClean"></div>
+  </div>
+  <div class="wrap hero-in">
+    <div class="hero-top">
+      <img class="logo" src="assets/logo-white.png" alt="ممكن — منظمة ممكن للتوعية والإعلام">
+      <div class="program-tag">Media Center · <b>Trainee Program</b></div>
+    </div>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="kicker">غرفة التحرير · <span class="en">The Writers' Room</span></div>
+        <h1 class="hero-title">
+          <span class="l1">من المسوّدة…</span>
+          <span class="l2">إلى نصٍّ <span class="edit-slot" id="editSlot"><span class="edit-word" id="editWord">يُقنِع</span><span class="caret"></span></span></span>
+        </h1>
+        <p class="hero-sub">
+          برنامج تدريب الكتابة الإعلامية في المركز الإعلامي: دورة واحدة — <bdi dir="ltr" class="nw"><b class="en">Creative Copywriter Course</b></bdi> —
+          في أربعة أقسام وثمانية أسابيع: كتابةٌ، فمراجعة، فإعادة كتابة… حتى يتكوّن ملف أعمال حقيقي، وشهادة إتمام من ممكن.
+        </p>
+        <div class="greet" id="greet"></div>
+      </div>
+
+      <div class="hero-meter" id="heroMeter"></div>
+    </div>
+
+    <div class="hint"><i></i> حرّك المؤشّر فوق المسوّدات في الخلفية… وشاهدها تتحوّل إلى نصّ نظيف</div>
+  </div>
+</header>
+
+<!-- ============ course map ============ -->
+<section class="sec wrap" id="mapSec">
+  <div class="sec-head rv"><h2>خريطة الدورة</h2><span class="en">Course Map · 8 Weeks</span></div>
+  <div class="map rv" id="map"></div>
+</section>
+
+<!-- ============ this week ============ -->
+<section class="sec wrap" id="weekSec">
+  <div class="week-card rv" id="weekCard"></div>
+</section>
+
+<!-- ============ mentor desk ============ -->
+<section class="sec wrap hidden" id="mgrSec">
+  <div class="mgr rv" id="mgrPanel"></div>
+</section>
+
+<!-- ============ sections ============ -->
+<section class="sec wrap" id="chaptersSec">
+  <div class="sec-head rv"><h2>أقسام الدورة</h2><span class="en">Creative Copywriter Course · ilovecreatives</span></div>
+  <p class="sec-lead rv">
+    كل درس أو تمرين يُنجَز → زرّ «أنجزتُها» يجعله <b class="t-amber">قيد المراجعة</b> → وحين يعتمده المشرف يصبح <b class="t-green">«معتمد»</b>.
+    وفي التمارين والمشاريع يُرفَق رابط العمل (Google Docs / Drive) ليقرأه المشرف مباشرة.
+  </p>
+  <div class="legend rv">
+    <span class="lg"><i class="cb cb-lesson"></i> درس</span>
+    <span class="lg"><i class="cb cb-practice"></i> تمرين أو مشروع</span>
+    <span class="lg"><i class="cb cb-mm"></i> تطبيق على عمل ممكن</span>
+    <span class="lg"><i class="cb cb-review"></i> مراجعة مع المشرف</span>
+  </div>
+  <div class="chapters" id="chapters"></div>
+</section>
+
+<!-- ============ course kit ============ -->
+<section class="kit-sec" id="kitSec">
+  <div class="wrap">
+    <div class="sec-head rv"><h2>حقيبة الدورة</h2><span class="en">Course Kit · Downloads</span></div>
+    <p class="sec-lead rv">
+      دفتر التمارين وكل ما تحتاجه للدورة في مكان واحد. «فتح» للقراءة في المتصفح، و«تحميل» لحفظ الملف على الجهاز.
+      الملفات محفوظة على OneDrive المركز الإعلامي، وتُفتح بحساب ممكن (@moomken.org).
+    </p>
+    <div class="kit" id="kit"></div>
+    <div class="kit-note rv">
+      <b>فيديوهات الدروس:</b> تُشاهَد من بوابة الدورة (ilovecreatives). يوفّر المشرف طريقة الدخول في أول يوم من التدريب.
+    </div>
+  </div>
+</section>
+
+<!-- ============ certificate ============ -->
+<section class="sec wrap" id="certSec">
+  <div class="sec-head rv"><h2>شهادة الإتمام</h2><span class="en">Certificate of Completion</span></div>
+  <div class="cert-wrap rv" id="certWrap"></div>
+</section>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <img src="assets/logo-white.png" alt="ممكن">
+    <div class="f-txt">
+      المركز الإعلامي — منظمة ممكن للتوعية والإعلام · طرابلس، ليبيا<br>
+      <span class="f-en">EVERYTHING IS MOOMKEN — كل شيء ممكن</span>
+    </div>
+    <div class="f-course">Creative Copywriter Course — ilovecreatives · Moomken Media Center Trainee Program</div>
+  </div>
+</footer>
+
+<!-- printable certificate (only visible when printing) -->
+<div class="print-cert" id="printCert" aria-hidden="true"></div>
+
+<div class="toasts" id="toasts"></div>
+<canvas id="confetti"></canvas>
+<script src="app.js?v=1"></script>
+</body>
+</html>
