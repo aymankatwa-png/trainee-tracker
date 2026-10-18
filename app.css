@@ -358,7 +358,9 @@ a{color:var(--cyan-600)}
    ============================================================ */
 @media (max-width:980px){
   .hero-grid{grid-template-columns:1fr;gap:26px}
-  .hero::after{background:linear-gradient(180deg,rgba(19,37,59,.55),rgba(19,37,59,.82))}
+  .hero::after{background:linear-gradient(180deg,rgba(19,37,59,.72),rgba(19,37,59,.86))}
+  .clean{color:rgba(255,255,255,.5)} .clean b{color:rgba(58,192,235,.7)}
+  .rough{color:rgba(208,231,241,.09)}
   .map{grid-template-columns:repeat(5,minmax(120px,1fr));overflow-x:auto;padding-bottom:10px}
   .ch-head{grid-template-columns:auto 1fr auto}
   .ch-prog{grid-column:1/-1;order:5}
